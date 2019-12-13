@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+message Response {
+	int32 code = 1;
+	string message = 2;
+	string data = 3;
+}
+
+enum Species {
+   	Animal = 0;
+	Botany = 1;
+}
+
+message NewIngredient {
+	string name = 1;
+	Species species = 2;
+}
+
+service Ingredient {
+	rpc Add(NewIngredient) returns (Response) {}
+}
