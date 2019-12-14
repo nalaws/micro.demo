@@ -8,7 +8,7 @@ This example makes use of the micro.
 ```
 protoc --proto_path=$GOPATH/src:. --micro_out=. --go_out=. rpc.proto
 ```
-*or
+or
 ```
 protoc --micro_out=. --go_out=. rpc.proto
 ```
