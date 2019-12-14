@@ -31,7 +31,7 @@ go run rpc/mian.go
 or usage
 ```
 consul agent -dev -bind [local address]
-micro --registry=consul api --handler=api
+micro --registry=consul api --handler=rpc
 <project srv> --registry=consul
 <project api> --registry=consul
 ```
