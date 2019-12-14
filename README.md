@@ -7,9 +7,7 @@ This example makes use of the micro.
 1、build \*.proto file
 ```
 protoc --proto_path=$GOPATH/src:. --micro_out=. --go_out=. rpc.proto
-```
 or
-```
 protoc --micro_out=. --go_out=. rpc.proto
 ```
 2、Run the micro API with the rpc handler
