@@ -16,6 +16,15 @@ message NewIngredient {
 	Species species = 2;
 }
 
+message IngredientName {
+	string name = 1;
+}
+
+message IngredientInfo {
+	string name = 1;
+}
+
 service Ingredient {
 	rpc Add(NewIngredient) returns (Response) {}
+	rpc GetIngredientByName(IngredientName) returns (IngredientInfo) {}
 }

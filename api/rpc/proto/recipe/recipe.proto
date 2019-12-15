@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+message Response {
+	int32 code = 1;
+	string message = 2;
+	string data = 3;
+}
+
+message IngredientInfo {
+	string name = 1;
+}
+
+message NewRecipe {
+	string name = 1;
+	IngredientInfo ingredient = 2;
+}
+
+message RecipeName {
+	string name = 1;
+}
+
+service Recipe {
+	rpc Add(NewRecipe) returns (Response) {}
+	rpc GetRecipeByName(RecipeName) returns (Response) {}
+}

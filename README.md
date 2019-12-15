@@ -36,14 +36,18 @@ micro --registry=consul api --handler=rpc
 <project api> --registry=consul
 ```
 
-Make a POST request to /example/call which will call go.micro.api.example Example.Call
+Make a POST request to recipe/add which will call go.micro.api.recipe recipe.Add
 
 ```
-curl -H 'Content-Type: application/json' -d '{"name": "john"}' "http://localhost:8080/example/call"
+curl -H 'Content-Type: application/json' -d '{"name": "dog", "ingredient":{"name":"dog"}}' "http://localhost:8080/recipe/add"
 ```
 
-Make a POST request to /example/foo/bar which will call go.micro.api.example Foo.Bar
+Make a POST request to /recipe/GetRecipeByName which will call go.micro.api.recipe recipe.GetRecipeByName
 
 ```
-curl -H 'Content-Type: application/json' -d '{}' http://localhost:8080/example/foo/bar
+curl -H 'Content-Type: application/json' -d '{"name": "dog"}' "http://localhost:8080/recipe/GetRecipeByName"
 ```
+
+## Note
+
+Micro doesn't run very well when it starts under windows. It often fails to find a service. After finding a service, it is basically stable.

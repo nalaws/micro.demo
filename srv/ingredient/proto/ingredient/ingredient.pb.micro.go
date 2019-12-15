@@ -35,6 +35,7 @@ var _ server.Option
 
 type IngredientService interface {
 	Add(ctx context.Context, in *NewIngredient, opts ...client.CallOption) (*Response, error)
+	GetIngredientByName(ctx context.Context, in *IngredientName, opts ...client.CallOption) (*IngredientInfo, error)
 }
 
 type ingredientService struct {
@@ -65,15 +66,27 @@ func (c *ingredientService) Add(ctx context.Context, in *NewIngredient, opts ...
 	return out, nil
 }
 
+func (c *ingredientService) GetIngredientByName(ctx context.Context, in *IngredientName, opts ...client.CallOption) (*IngredientInfo, error) {
+	req := c.c.NewRequest(c.name, "Ingredient.GetIngredientByName", in)
+	out := new(IngredientInfo)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // Server API for Ingredient service
 
 type IngredientHandler interface {
 	Add(context.Context, *NewIngredient, *Response) error
+	GetIngredientByName(context.Context, *IngredientName, *IngredientInfo) error
 }
 
 func RegisterIngredientHandler(s server.Server, hdlr IngredientHandler, opts ...server.HandlerOption) error {
 	type ingredient interface {
 		Add(ctx context.Context, in *NewIngredient, out *Response) error
+		GetIngredientByName(ctx context.Context, in *IngredientName, out *IngredientInfo) error
 	}
 	type Ingredient struct {
 		ingredient
@@ -88,4 +101,8 @@ type ingredientHandler struct {
 
 func (h *ingredientHandler) Add(ctx context.Context, in *NewIngredient, out *Response) error {
 	return h.IngredientHandler.Add(ctx, in, out)
+}
+
+func (h *ingredientHandler) GetIngredientByName(ctx context.Context, in *IngredientName, out *IngredientInfo) error {
+	return h.IngredientHandler.GetIngredientByName(ctx, in, out)
 }
