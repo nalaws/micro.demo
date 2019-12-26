@@ -28,6 +28,15 @@ go run ingredient/main.go
 go run rpc/mian.go
 ```
 
+5、Run the micro web
+```
+micro web
+```
+6、Run web
+
+```
+go run web/mian.go
+```
 or usage
 ```
 consul agent -dev -bind [local address]

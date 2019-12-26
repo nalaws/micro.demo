@@ -11,7 +11,8 @@ import (
 	"github.com/nalaws/micro.demo/srv/recipe/proto/recipe"
 )
 
-type RecipeApi struct {
+// struct name is impletement grpc server name
+type Recipe struct {
 	Recipe     recipe.RecipeService
 	Ingredient ingredient.IngredientService
 }
@@ -26,7 +27,7 @@ type RecipeReq struct {
 }
 
 // curl -H 'Content-Type: application/json' -d '{"name": "dog","ingredient": {"name": "dog"}}' http://localhost:8080/recipe/add
-func (r *RecipeApi) Add(ctx context.Context, req *api.Request, rsp *api.Response) error {
+func (r *Recipe) Add(ctx context.Context, req *api.Request, rsp *api.Response) error {
 	fmt.Println("@@@ Received RecipeApi.Add API request")
 
 	recipeReq, ingredientReq, err := r.validateAddParams(req)
@@ -49,7 +50,7 @@ func (r *RecipeApi) Add(ctx context.Context, req *api.Request, rsp *api.Response
 	return nil
 }
 
-func (r *RecipeApi) validateAddParams(req *api.Request) (*recipe.NewRecipe, *ingredient.NewIngredient, error) {
+func (r *Recipe) validateAddParams(req *api.Request) (*recipe.NewRecipe, *ingredient.NewIngredient, error) {
 	// check method
 	if req.Method != "POST" {
 		return nil, nil, errors.New("Method error.")
@@ -66,7 +67,7 @@ func (r *RecipeApi) validateAddParams(req *api.Request) (*recipe.NewRecipe, *ing
 }
 
 // curl http://localhost:8080/recipe/GetRecipeByName?name=dog
-func (r *RecipeApi) GetRecipeByName(ctx context.Context, req *api.Request, rsp *api.Response) error {
+func (r *Recipe) GetRecipeByName(ctx context.Context, req *api.Request, rsp *api.Response) error {
 	fmt.Println("@@@ Received RecipeApi.GetRecipeByName API request")
 
 	recipeReq, ingredientReq, err := r.validateGetRecipeByNameParams(req)
@@ -89,7 +90,7 @@ func (r *RecipeApi) GetRecipeByName(ctx context.Context, req *api.Request, rsp *
 	return nil
 }
 
-func (r *RecipeApi) validateGetRecipeByNameParams(req *api.Request) (*recipe.RecipeName, *ingredient.IngredientName, error) {
+func (r *Recipe) validateGetRecipeByNameParams(req *api.Request) (*recipe.RecipeName, *ingredient.IngredientName, error) {
 	// check method
 	if req.Method != "GET" {
 		return nil, nil, errors.New("Method error.")

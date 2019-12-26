@@ -14,8 +14,7 @@ import (
 func main() {
 	// Create service
 	service := micro.NewService(
-		// *.proto中的service会被注册到go.micro.api中,最后一个字段为引用的service name
-		micro.Name("go.micro.api.recipe111"),
+		micro.Name("go.micro.api.recipe"), // go.micro.api.*: * is impletement server name
 	)
 
 	// Init to parse flags
@@ -24,8 +23,7 @@ func main() {
 	// Register Handlers
 	service.Server().Handle(
 		service.Server().NewHandler(
-			&handler.RecipeApi{
-				// Create Service Client. *.proto中的service会被注册到go.micro.api中,最后一个字段为引用的service name
+			&handler.Recipe{
 				Recipe:     recipeSrv.NewRecipeService("go.micro.srv.recipe", service.Client()),
 				Ingredient: ingredientSrv.NewIngredientService("go.micro.srv.ingredient", service.Client()),
 			},
