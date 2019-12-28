@@ -5,7 +5,8 @@ This example makes use of the micro.
 ## Usage
 
 ### 1、build \*.proto file
-build all \*.proto file. file path:api\rpc\proto、srv\ingredient\proto\ingredient、srv\recipe\proto\recipe.
+build all \*.proto file. file path: api\rpc\proto、srv\ingredient\proto\ingredient、srv\recipe\proto\recipe.
+
 e.g:
 ```
 protoc --micro_out=. --go_out=. rpc.proto
