@@ -4,58 +4,52 @@ This example makes use of the micro.
 
 ## Usage
 
-1、build \*.proto file
-```
-protoc --proto_path=$GOPATH/src:. --micro_out=. --go_out=. rpc.proto
-```
-or
+### 1、build \*.proto file
+build all \*.proto file. file path:api\rpc\proto、srv\ingredient\proto\ingredient、srv\recipe\proto\recipe.
+e.g:
 ```
 protoc --micro_out=. --go_out=. rpc.proto
 ```
-2、Run the micro API with the rpc handler
+### 2、Run micro
 
 ```
-micro api --handler=rpc
+micro api --handler=rpc --address=0.0.0.0:8080
 ```
-3、Run server
-
 ```
-go run ingredient/main.go
+micro api --handler=api --address=0.0.0.0:8081
 ```
-4、Run api
-
-```
-go run rpc/mian.go
-```
-
-5、Run the micro web
 ```
 micro web
 ```
-6、Run web
+### 3、Run server
 
 ```
-go run web/mian.go
+go run srv/ingredient/main.go
 ```
-or usage
 ```
-consul agent -dev -bind [local address]
-micro --registry=consul api --handler=rpc
-<project srv> --registry=consul
-<project api> --registry=consul
+go run srv/recipe/main.go
 ```
-
-Make a POST request to recipe/add which will call go.micro.api.recipe recipe.Add
+### 4、Run api
 
 ```
-curl -H 'Content-Type: application/json' -d '{"name": "dog", "ingredient":{"name":"dog"}}' "http://localhost:8080/recipe/add"
+go run api/api/main.go
 ```
+```
+go run api/rpc/main.go
+```
+### 5、Run web
 
-Make a POST request to /recipe/GetRecipeByName which will call go.micro.api.recipe recipe.GetRecipeByName
-
+```
+go run web/main.go
+```
+### 6、Test
 ```
 curl -H 'Content-Type: application/json' -d '{"name": "dog"}' "http://localhost:8080/recipe/GetRecipeByName"
 ```
+```
+curl http://localhost:8081/recipe/GetRecipeByName?name=dog
+```
+Open with browser: `http://localhost:8082/recipe`
 
 ## Note
 
